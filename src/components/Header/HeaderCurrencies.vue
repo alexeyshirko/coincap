@@ -1,38 +1,38 @@
-<template>
-  <div class="container">
-    <div>
-      {{ symbol }}
-    </div>
-    &nbsp;
-    <div>
-      {{ getCurrencyPrice }}
-      {{ getCurrencyChange }}
-    </div>
-  </div>
+<template lang="pug">
+  div(class="container" @click="onUserClickCurrency")
+    div {{ symbol }}
+    span
+    div {{ getCurrencyPrice }} {{ getCurrencyChange }}
 </template>
 
 <script>
-/* TODO ability to go directly to the component Currency */
-export default {
-  name: "HeaderItem",
-  props: {
-    priceUsd: Number,
-    symbol: String,
-    change: Number,
-  },
-  computed: {
-    getCurrencyChange() {
-      return this.change > 0 ? '↑' : '↓'
-    },
+import {NumberHelper} from "../../mixins/NumberHelper";
 
-    getCurrencyPrice() {
-      return this.priceUsd.toFixed(3)
+export default {
+  name: "HeaderCurrencies",
+
+  props: {
+    symbol: String,
+    changePercent24Hr: Number,
+    priceUsd: Number,
+    id: String,
+  },
+
+  mixins: [NumberHelper],
+
+  methods: {
+    onUserClickCurrency() {
+      if (this.$route.name !== 'main') return alert('Go to the main page')
+
+      this.$router.push({ name: 'currency', params: { id: this.id } })
     },
   },
 }
 </script>
 
 <style scoped lang="sass">
+  span
+    width: 5px
   .container
     background-color: #f5f0e1
     border-radius: 15px

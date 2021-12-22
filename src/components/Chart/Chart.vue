@@ -1,12 +1,12 @@
 <script>
-import { select } from "d3-selection"
-import { timeParse, timeFormat } from "d3-time-format"
+import { select } from 'd3-selection'
+import { timeParse, timeFormat } from 'd3-time-format'
+import { debounce } from 'lodash'
 
-import { debounce } from "@/core/utils/function"
 const allowedPeriods = /^(hourly|daily|weekly|monthly|yearly)$/
 
 export default {
-  name: 'Test',
+  name: 'Chart',
   props: {
     data: { type: Array, default: () => [] },
     period: { type: String, default: "daily", validator: value => allowedPeriods.test(value) },
