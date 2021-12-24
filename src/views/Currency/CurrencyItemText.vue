@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  name: "CurrencyItemText",
+  name: 'CurrencyItemText',
+
   props: {
     heading: String,
     value: String,

@@ -12,7 +12,7 @@
 import { NumberHelper } from '../../mixins/NumberHelper'
 
 export default {
-  name: "MainTableItem",
+  name: 'MainTableItem',
 
   props: {
     id: String,

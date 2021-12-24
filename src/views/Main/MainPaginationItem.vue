@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "MainPaginationItem",
+  name: 'MainPaginationItem',
 
   props: {
     pageNumber: Number,
@@ -20,7 +20,7 @@ export default {
         'pagination__item',
         { 'isActive': this.currentPage === this.pageNumber }
       ]
-    }
+    },
   },
 
   methods: {

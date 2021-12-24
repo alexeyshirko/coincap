@@ -8,15 +8,16 @@
       titleText="Add currency to your wallet"
     )
       input(class="modal__input" placeholder="Quantity" v-model="quantity")
-    div(class="currency")
-      CurrencyItemText(heading="Rank" :value="rank")
-      CurrencyItemText(heading="Symbol" :value="symbol")
-      CurrencyItemText(heading="Name" :value="name")
-      CurrencyItemText(heading="Supply" :value="getCurrencySupply.toString()")
-      CurrencyItemText(heading="Price Usd" :value="getCurrencyPrice")
-      CurrencyItemText(heading="Change percent 24Hr" :value="getCurrencyChange")
+    div(class="currency__block")
+      div(class="currency")
+        CurrencyItemText(heading="Rank" :value="rank")
+        CurrencyItemText(heading="Symbol" :value="symbol")
+        CurrencyItemText(heading="Name" :value="name")
+        CurrencyItemText(heading="Supply" :value="getCurrencySupply.toString()")
+        CurrencyItemText(heading="Price Usd" :value="getCurrencyPrice")
+        CurrencyItemText(heading="Change percent 24Hr" :value="getCurrencyChange")
+      TestChart(:currencyHistory="currencyHistory" v-if="currencyHistory")
     Button(@onUserClickButton="onUserInteractsWithModal" buttonText="Add")
-    Button(buttonText="Check")
 </template>
 
 <script>
@@ -25,6 +26,9 @@ import Modal from '../../components/Modal/Modal'
 import Button from '../../components/Button/Button'
 import { mapGetters } from 'vuex'
 import { NumberHelper } from '../../mixins/NumberHelper'
+import Chart from '../../components/Chart/Chart'
+import TestChart from '../../components/TestChart/TestChart'
+import { Currencies } from '../../mixins/Currencies'
 export default {
   name: "CurrencyItem",
 
@@ -32,12 +36,15 @@ export default {
     Modal,
     CurrencyItemText,
     Button,
+    Chart,
+    TestChart,
   },
 
   data() {
     return {
       isModalVisible: false,
       quantity: '',
+      currencyHistory: null,
     }
   },
 
@@ -49,6 +56,10 @@ export default {
     supply: Number,
     priceUsd: Number,
     changePercent24Hr: Number,
+  },
+
+  async mounted() {
+    this.currencyHistory = await Currencies.methods.getCurrencyHistory(this.$route.params.id)
   },
 
   methods: {
@@ -78,18 +89,18 @@ export default {
     },
 
     addNewCurrency() {
-      const isCurrencyInPurse = this.$store.getters.getUserPurse.find((item) => item.id === this.currency.id)
+      const isCurrencyInPurse = this.$store.getters.getUserPurse.find((item) => item.id === this.id)
       const currency = isCurrencyInPurse
         ? this.$store.getters.getUserPurse.map(item => {
-          return item.id !== this.currency.id ? item : {
+          return item.id !== this.id ? item : {
             ...item,
             quantity: item.quantity && (+item.quantity + +this.quantity).toString()
           }
         }) : [...this.$store.getters.getUserPurse, {
-          id: this.currency.id,
-          symbol: this.currency.id,
-          priceUsd: this.currency.priceUsd,
-          changePercent24Hr: this.currency.changePercent24Hr,
+          id: this.id,
+          symbol: this.id,
+          priceUsd: this.priceUsd,
+          changePercent24Hr: this.changePercent24Hr,
           quantity: this.quantity,
         }]
 
@@ -97,7 +108,7 @@ export default {
     },
   },
 
-  mixins: [NumberHelper],
+  mixins: [NumberHelper, Currencies],
 
   computed: mapGetters(['getPurseLength']),
 }
@@ -122,4 +133,8 @@ export default {
     text-align: center
     border-radius: 15px
     font-family: 'Bakbak One', cursive
+
+    &__block
+      display: flex
+      flex-direction: row
 </style>

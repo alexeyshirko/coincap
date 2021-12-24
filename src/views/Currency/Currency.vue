@@ -23,26 +23,32 @@ import Loader from '../../components/Loader/Loader'
 import NotFound from '../NotFound/NotFound'
 
 export default {
-  name: "Currency",
+  name: 'Currency',
+
   components: {
     NotFound,
     CurrencyItem,
     Loader,
   },
+
   data() {
     return {
       currency: null,
     }
   },
+
   mixins: [Currencies],
+
   async mounted() {
     this.currency = await Currencies.methods.getCurrency(this.currencyId)
   },
+
   computed: {
     currencyId() {
       return this.$route.params.id
     },
   },
+
   methods: {
     isDataReceived() {
       return this.currency !== null && typeof this.currency === 'object'

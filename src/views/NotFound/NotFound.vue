@@ -5,13 +5,13 @@
 
 <script>
 export default {
-  name: "NotFound",
+  name: 'NotFound',
 
   props: {
     title: {
       type: String,
-      default: "Page not found!"
-    }
+      default: 'Page not found!',
+    },
   },
 }
 </script>

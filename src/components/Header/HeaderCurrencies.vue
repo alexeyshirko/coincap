@@ -9,7 +9,7 @@
 import {NumberHelper} from "../../mixins/NumberHelper";
 
 export default {
-  name: "HeaderCurrencies",
+  name: 'HeaderCurrencies',
 
   props: {
     symbol: String,

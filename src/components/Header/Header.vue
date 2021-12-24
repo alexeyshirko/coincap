@@ -24,21 +24,26 @@ import HeaderPurse from './HeaderPurse'
 import NotFound from '../../views/NotFound/NotFound'
 
 export default {
-  name: "Header",
+  name: 'Header',
+
   components: {
     HeaderPurse,
     HeaderCurrencies,
     NotFound,
   },
+
   data() {
     return {
       currencies: [],
     }
   },
+
   mixins: [Currencies],
+
   async mounted() {
     this.currencies = await Currencies.methods.getPopularCurrency()
   },
+
   computed: {
     isFoundCurrencies() {
       return Array.isArray(this.currencies)

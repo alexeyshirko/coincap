@@ -34,19 +34,22 @@ import MainPagination from './MainPagination'
 import NotFound from '../NotFound/NotFound'
 import Loader from '../../components/Loader/Loader'
 export default {
-  name: "MainTable",
+  name: 'MainTable',
+
   components: {
     MainPagination,
     MainTableItem,
     NotFound,
     Loader,
   },
+
   props: {
     currencies: {
       type: Array,
-      require: true
+      require: true,
     },
   },
+
   methods: {
     isDataReceived() {
       return Array.isArray(this.currencies)

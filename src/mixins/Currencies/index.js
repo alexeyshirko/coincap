@@ -10,6 +10,7 @@ export const Currencies = {
         console.log(e)
       }
     },
+
     async getCurrency(id) {
       try {
         const response = await fetch('https://api.coincap.io/v2/assets/' + id)
@@ -20,6 +21,7 @@ export const Currencies = {
         console.log(e)
       }
     },
+
     async getPopularCurrency() {
       try {
         const response = await fetch('https://api.coincap.io/v2/assets?limit=3')
@@ -30,5 +32,16 @@ export const Currencies = {
         console.log(e)
       }
     },
+
+    async getCurrencyHistory(id) {
+      try {
+        const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=d1`)
+        const { data } = await response.json()
+
+        return data
+      } catch (e) {
+        console.log(e)
+      }
+    }
   },
 }

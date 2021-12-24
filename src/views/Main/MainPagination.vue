@@ -15,13 +15,17 @@ import MainPaginationItem from './MainPaginationItem'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: "MainPagination",
+
   components: {
     MainPaginationItem
   },
+
   props: {
     length: Number,
   },
+
   methods: mapActions(['onUserUpdatePage']),
+
   computed: mapGetters(['getCurrentPage']),
 }
 </script>

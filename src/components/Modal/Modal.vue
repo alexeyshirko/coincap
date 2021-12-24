@@ -13,7 +13,7 @@
 <script>
 import Button from '../Button/Button'
 export default {
-  name: "Modal",
+  name: 'Modal',
 
   components: {
     Button,

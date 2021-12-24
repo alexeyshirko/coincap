@@ -33,10 +33,10 @@
 <script>
 import Modal from '../Modal/Modal'
 export default {
-  name: "HeaderPurse",
+  name: 'HeaderPurse',
 
   components: {
-    Modal
+    Modal,
   },
 
   data() {

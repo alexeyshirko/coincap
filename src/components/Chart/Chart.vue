@@ -98,7 +98,7 @@ export default {
   methods: {
     onResize: debounce(function () {
       this.updateChartSizes()
-      this.updateChart()
+      // this.updateChart()
     }, 120),
 
     updateChart() {
@@ -126,7 +126,7 @@ export default {
     },
 
     initChart() {
-      throw new Error("Not implemented!")
+
     }
   }
 }
