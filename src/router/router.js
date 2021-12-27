@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import CoinCapMain from '../views/Main/Main'
 import CoinCapCurrency from '../views/Currency/Currency'
 import NotFound from '../views/NotFound/NotFound'
+import SearchEngine from '../views/SearchEngine/SearchEngine'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ const routes = [
     name: 'currency',
     component: CoinCapCurrency,
     props: true,
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: SearchEngine,
   },
   {
     path: '*',
