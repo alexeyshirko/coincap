@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {NumberHelper} from "../../mixins/NumberHelper";
+import {NumberHelper} from "../../../mixins/NumberHelper";
 
 export default {
   name: 'HeaderCurrencies',

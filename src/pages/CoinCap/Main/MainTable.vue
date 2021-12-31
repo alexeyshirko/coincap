@@ -32,7 +32,7 @@
 import MainTableItem from './MainTableItem'
 import MainPagination from './MainPagination'
 import NotFound from '../NotFound/NotFound'
-import Loader from '../../components/Loader/Loader'
+import Loader from '../../../components/coincap/Loader/Loader'
 export default {
   name: 'MainTable',
 

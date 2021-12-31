@@ -9,7 +9,6 @@
       width="600px"
     )
       p(v-if="!getUserPurse") Your purse is empty
-      // TODO maybe move slot component
       template(v-else)
         ul
           li Symbol

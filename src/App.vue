@@ -2,11 +2,11 @@
   div#app
     Header
 
-    <router-view></router-view>
+    router-view
 </template>
 
 <script>
-import Header from './components/Header/Header'
+import Header from './components/coincap/Header/Header'
 export default {
   name: 'App',
   components: {

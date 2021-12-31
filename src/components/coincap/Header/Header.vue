@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import { Currencies } from '../../mixins/Currencies'
+import { currency } from '../../../api/currency-info'
 import HeaderCurrencies from './HeaderCurrencies'
 import HeaderPurse from './HeaderPurse'
-import NotFound from '../../views/NotFound/NotFound'
+import NotFound from '../../../pages/CoinCap/NotFound/NotFound'
 
 export default {
   name: 'Header',
@@ -38,10 +38,8 @@ export default {
     }
   },
 
-  mixins: [Currencies],
-
   async mounted() {
-    this.currencies = await Currencies.methods.getPopularCurrency()
+    this.currencies = await currency.getPopularCurrency()
   },
 
   computed: {

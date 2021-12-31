@@ -9,8 +9,8 @@
 <script>
 import SearchEngineList from './SearchEngineList'
 import NotFound from '../NotFound/NotFound'
-import Loader from '../../components/Loader/Loader'
-import { Currencies } from '../../mixins/Currencies'
+import Loader from '../../../components/coincap/Loader/Loader'
+import { currency } from '../../../api/currency-info'
 export default {
   name: "SearchEngine",
 
@@ -28,7 +28,7 @@ export default {
   },
 
   async mounted() {
-    this.list = await Currencies.methods.getCurrencies()
+    this.list = await currency.getCurrencies()
   },
 
   computed: {
@@ -40,8 +40,6 @@ export default {
       return this.list === null
     },
   },
-
-  mixins: [Currencies],
 }
 </script>
 

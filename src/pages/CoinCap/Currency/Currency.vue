@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import { Currencies } from '../../mixins/Currencies'
 import CurrencyItem from './CurrencyItem'
-import Loader from '../../components/Loader/Loader'
+import Loader from '../../../components/coincap/Loader/Loader'
 import NotFound from '../NotFound/NotFound'
+import { currency } from '../../../api/currency-info'
 
 export default {
   name: 'Currency',
@@ -37,10 +37,8 @@ export default {
     }
   },
 
-  mixins: [Currencies],
-
   async mounted() {
-    this.currency = await Currencies.methods.getCurrency(this.currencyId)
+    this.currency = await currency.getCurrency(this.currencyId)
   },
 
   computed: {

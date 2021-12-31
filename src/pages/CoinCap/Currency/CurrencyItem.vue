@@ -22,13 +22,13 @@
 
 <script>
 import CurrencyItemText from './CurrencyItemText'
-import Modal from '../../components/Modal/Modal'
-import Button from '../../components/Button/Button'
+import Modal from '../../../components/coincap/Modal/Modal'
+import Button from '../../../components/coincap/Button/Button'
 import { mapGetters } from 'vuex'
-import { NumberHelper } from '../../mixins/NumberHelper'
-import Chart from '../../components/Chart/Chart'
-import TestChart from '../../components/TestChart/TestChart'
-import { Currencies } from '../../mixins/Currencies'
+import { NumberHelper } from '../../../mixins/NumberHelper'
+import Chart from '../../../components/coincap/Chart/Chart'
+import TestChart from '../../../components/coincap/TestChart/TestChart'
+import { currency } from '../../../api/currency-info'
 export default {
   name: "CurrencyItem",
 
@@ -59,7 +59,7 @@ export default {
   },
 
   async mounted() {
-    this.currencyHistory = await Currencies.methods.getCurrencyHistory(this.$route.params.id)
+    this.currencyHistory = await currency.getCurrencyHistory(this.$route.params.id)
   },
 
   methods: {
@@ -108,7 +108,7 @@ export default {
     },
   },
 
-  mixins: [NumberHelper, Currencies],
+  mixins: [NumberHelper],
 
   computed: mapGetters(['getPurseLength']),
 }

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import CoinCapMain from '../views/Main/Main'
-import CoinCapCurrency from '../views/Currency/Currency'
-import NotFound from '../views/NotFound/NotFound'
-import SearchEngine from '../views/SearchEngine/SearchEngine'
+import CoinCapMain from '../pages/CoinCap/Main/Main'
+import CoinCapCurrency from '../pages/CoinCap/Currency/Currency'
+import NotFound from '../pages/CoinCap/NotFound/NotFound'
+import SearchEngine from '../pages/CoinCap/SearchEngine/SearchEngine'
 
 Vue.use(Router)
 

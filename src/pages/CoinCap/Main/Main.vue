@@ -6,7 +6,7 @@
 
 <script>
 import MainTable from './MainTable'
-import { Currencies } from '../../mixins/Currencies'
+import { currency } from '../../../api/currency-info'
 
 export default {
   name: 'Main',
@@ -21,17 +21,15 @@ export default {
     MainTable,
   },
 
-  mixins: [Currencies],
-
   async mounted() {
     const currentPage = this.$store.getters.getCurrentPage
 
-    this.currencies = await Currencies.methods.getCurrencyByPage(currentPage)
+    this.currencies = await currency.getCurrencyByPage(currentPage)
   },
 
   watch: {
     async currentPage(newCurrentPage) {
-      this.currencies = await Currencies.methods.getCurrencyByPage(newCurrentPage)
+      this.currencies = await currency.getCurrencyByPage(newCurrentPage)
     }
   },
 
