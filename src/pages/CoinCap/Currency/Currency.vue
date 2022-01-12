@@ -1,26 +1,27 @@
 <template lang="pug">
   div(class="container")
-    article(v-if="isDataReceived()")
+    div(v-if="serviceLoading")
+      Loader
+    article(v-else-if="!serviceErrors")
       CurrencyItem(
         :symbol="currency.symbol"
-        :changePercent24Hr="+currency.changePercent24Hr"
+        :changePercent24Hr="currency.changePercent24Hr"
         :name="currency.name"
-        :priceUsd="+currency.priceUsd"
+        :priceUsd="currency.priceUsd"
         :rank="currency.rank"
-        :supply="+currency.supply"
+        :supply="currency.supply"
         :id="currency.id"
       )
-    div(v-else-if="isDataReceivedWithProblem()")
+    div(v-else-if="serviceErrors")
       NotFound(title="Not found anything")
-    div(v-else)
-      Loader
 </template>
 
 <script>
 import CurrencyItem from './CurrencyItem'
 import Loader from '../../../components/coincap/Loader/Loader'
 import NotFound from '../NotFound/NotFound'
-import { currency } from '../../../api/currency-info'
+import serviceHandler from '../../../mixins/ServiceHandler/serviceHandler'
+import { currencyItem } from '../../../domain/currency/service'
 
 export default {
   name: 'Currency',
@@ -38,7 +39,9 @@ export default {
   },
 
   async mounted() {
-    this.currency = await currency.getCurrency(this.currencyId)
+    this.dispatch(currencyItem, this.currencyId).then(({ data }) => {
+      this.currency = data
+    })
   },
 
   computed: {
@@ -47,15 +50,7 @@ export default {
     },
   },
 
-  methods: {
-    isDataReceived() {
-      return this.currency !== null && typeof this.currency === 'object'
-    },
-
-    isDataReceivedWithProblem() {
-      return this.currency === undefined
-    },
-  },
+  mixins: [serviceHandler],
 }
 </script>
 

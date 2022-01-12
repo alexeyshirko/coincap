@@ -28,7 +28,8 @@ import { mapGetters } from 'vuex'
 import { NumberHelper } from '../../../mixins/NumberHelper'
 import Chart from '../../../components/coincap/Chart/Chart'
 import TestChart from '../../../components/coincap/TestChart/TestChart'
-import { currency } from '../../../api/currency-info'
+import serviceHandler from '../../../mixins/ServiceHandler/serviceHandler'
+import { currencyHistory } from '../../../domain/currency/service'
 export default {
   name: "CurrencyItem",
 
@@ -59,7 +60,9 @@ export default {
   },
 
   async mounted() {
-    this.currencyHistory = await currency.getCurrencyHistory(this.$route.params.id)
+    this.fetch(currencyHistory, this.$route.params.id).then(({ data }) => {
+      this.currencyHistory = data
+    })
   },
 
   methods: {
@@ -108,7 +111,7 @@ export default {
     },
   },
 
-  mixins: [NumberHelper],
+  mixins: [NumberHelper, serviceHandler],
 
   computed: mapGetters(['getPurseLength']),
 }

@@ -2,15 +2,15 @@
   header
     div(class="container")
       div(class="container__currencies")
-        div(v-if="!isFoundCurrencies")
+        div(v-if="serviceErrors")
           NotFound(title="No information")
         HeaderCurrencies(
           v-else
           v-for="currency in currencies"
           :key="currency.id"
           :symbol="currency.symbol"
-          :changePercent24Hr="+currency.changePercent24Hr"
-          :priceUsd="+currency.priceUsd"
+          :changePercent24Hr="currency.changePercent24Hr"
+          :priceUsd="currency.priceUsd"
           :id="currency.id"
         )
       div(class="container__purse")
@@ -18,10 +18,11 @@
 </template>
 
 <script>
-import { currency } from '../../../api/currency-info'
 import HeaderCurrencies from './HeaderCurrencies'
 import HeaderPurse from './HeaderPurse'
 import NotFound from '../../../pages/CoinCap/NotFound/NotFound'
+import serviceHandler from '../../../mixins/ServiceHandler/serviceHandler'
+import { popularCurrency } from '../../../domain/currency/service'
 
 export default {
   name: 'Header',
@@ -38,15 +39,13 @@ export default {
     }
   },
 
-  async mounted() {
-    this.currencies = await currency.getPopularCurrency()
+  mounted() {
+    this.dispatch(popularCurrency).then(({ data }) => {
+      this.currencies = data
+    })
   },
 
-  computed: {
-    isFoundCurrencies() {
-      return Array.isArray(this.currencies)
-    },
-  },
+  mixins: [serviceHandler],
 }
 </script>
 

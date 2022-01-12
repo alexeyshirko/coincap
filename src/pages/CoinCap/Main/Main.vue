@@ -1,12 +1,17 @@
 <template lang="pug">
   main
     div(class="container")
-      MainTable(:currencies="currencies")
+      MainTable(
+        :currencies="currencies"
+        :isLoading="serviceLoading"
+        :isErrorsReceived="serviceErrors"
+      )
 </template>
 
 <script>
 import MainTable from './MainTable'
-import { currency } from '../../../api/currency-info'
+import serviceHandler from '../../../mixins/ServiceHandler/serviceHandler'
+import { currencyList } from '../../../domain/currency/service'
 
 export default {
   name: 'Main',
@@ -24,12 +29,18 @@ export default {
   async mounted() {
     const currentPage = this.$store.getters.getCurrentPage
 
-    this.currencies = await currency.getCurrencyByPage(currentPage)
+    this.dispatch(currencyList, currentPage).then(({ data }) => {
+      this.currencies = data.slice((currentPage - 1) * 10, currentPage * 10)
+    })
   },
 
   watch: {
-    async currentPage(newCurrentPage) {
-      this.currencies = await currency.getCurrencyByPage(newCurrentPage)
+    currentPage(newCurrentPage) {
+      const currentPage = this.$store.getters.getCurrentPage
+
+      this.dispatch(currencyList, newCurrentPage).then(({ data }) => {
+        this.currencies = data.slice((currentPage - 1) * 10, currentPage * 10)
+      })
     }
   },
 
@@ -38,6 +49,8 @@ export default {
       return this.$store.getters.getCurrentPage
     },
   },
+
+  mixins: [serviceHandler],
 }
 </script>
 
