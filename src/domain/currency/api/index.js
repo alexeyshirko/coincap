@@ -10,9 +10,9 @@ export const getPopularCurrency = async () => {
   })
 }
 
-export const getCurrencyByPage = async (page) => {
+export const getCurrencyByPage = async (offset) => {
   return await api.get('/assets', {
-    params: { page },
+    params: { ...offset, limit: 10 },
     transformResponse: transformResponse(({ ...attributes }) => CurrencyAPIMapper({ ...attributes })),
   })
 }

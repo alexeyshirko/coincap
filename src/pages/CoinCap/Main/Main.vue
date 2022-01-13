@@ -27,19 +27,17 @@ export default {
   },
 
   async mounted() {
-    const currentPage = this.$store.getters.getCurrentPage
+    const currentPage = this.$store.getters.getCurrentPage - 1
 
     this.dispatch(currencyList, currentPage).then(({ data }) => {
-      this.currencies = data.slice((currentPage - 1) * 10, currentPage * 10)
+      this.currencies = data
     })
   },
 
   watch: {
     currentPage(newCurrentPage) {
-      const currentPage = this.$store.getters.getCurrentPage
-
-      this.dispatch(currencyList, newCurrentPage).then(({ data }) => {
-        this.currencies = data.slice((currentPage - 1) * 10, currentPage * 10)
+      this.dispatch(currencyList, newCurrentPage - 1).then(({ data }) => {
+        this.currencies = data
       })
     }
   },

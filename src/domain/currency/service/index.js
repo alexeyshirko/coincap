@@ -10,8 +10,8 @@ export const popularCurrency = async () => {
   return response.data
 }
 
-export const currencyList = async (page = 1) => {
-  const response = await getCurrencyByPage({ limit: page * 10 })
+export const currencyList = async (page = 0) => {
+  const response = await getCurrencyByPage({ offset: page * 10 })
   return response.data
 }
 
